@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ToDoPro – Smart Task Manager</title>
+<link rel="stylesheet" href="styles.css" />
+<script defer src="script.js"></script>
+</head>
+<body>
+
+<!-- HERO LOGIN/ SIGNUP SECTION -->
+<header class="hero gradient-bg">
+  <div class="hero-content">
+    <h1>Smart To-Do Manager</h1>
+    <p>Organize tasks, mark as done, and track your productivity in one place.</p>
+    
+    <div class="login-signup-grid">
+      <!-- LOGIN FORM -->
+      <form id="login-form" class="card form-card">
+        <h3>Login</h3>
+        <div class="form-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" name="email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="password" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="btn primary-btn full-width">Login</button>
+        <p>Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+      </form>
+
+      <!-- SIGNUP FORM -->
+      <form id="signup-form" class="card form-card">
+        <h3>Sign Up</h3>
+        <div class="form-group">
+          <label for="signup-name">Full Name</label>
+          <input type="text" id="signup-name" name="name" placeholder="Your Name" required>
+        </div>
+        <div class="form-group">
+          <label for="signup-email">Email</label>
+          <input type="email" id="signup-email" name="email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" name="password" placeholder="Minimum 8 characters" required>
+        </div>
+        <button type="submit" class="btn primary-btn full-width">Create Account</button>
+        <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+      </form>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Toggle login/signup forms
+  const loginForm = document.getElementById('login-form');
+  const signupForm = document.getElementById('signup-form');
+  document.getElementById('show-signup').addEventListener('click', e => {
+    e.preventDefault();
+    loginForm.style.display = 'none';
+    signupForm.style.display = 'block';
+  });
+  document.getElementById('show-login').addEventListener('click', e => {
+    e.preventDefault();
+    signupForm.style.display = 'none';
+    loginForm.style.display = 'block';
+  });
+  signupForm.style.display = 'none'; // default login visible
+</script>
+
+</body>
+</html>

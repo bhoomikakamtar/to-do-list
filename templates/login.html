@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | To-Do List</title>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #2193b0, #6dd5ed, #43cea2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-container {
+            background: rgba(0, 37, 51, 0.85);
+            padding: 40px 30px 30px 30px;
+            border-radius: 14px;
+            width: 360px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .login-container h2 {
+            margin: 0 0 10px 0;
+            color: #fff;
+            text-align: center;
+            font-size: 22px;
+        }
+        .login-container h4 {
+            color: #b0b8c7;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        label {
+            color: #fff;
+            font-size: 15px;
+            margin-top: 15px;
+            display: block;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            margin-bottom: 18px;
+        }
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        .remember-forgot input[type="checkbox"] {
+            accent-color: #21b2a6;
+        }
+        .remember-forgot label {
+            margin: 0;
+            font-size: 14px;
+        }
+        .remember-forgot a {
+            font-size: 14px;
+            color: #70e5ee;
+            text-decoration: none;
+        }
+        .remember-forgot a:hover {
+            text-decoration: underline;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 11px;
+            background: #131313;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 17px;
+        }
+        .login-btn:hover {
+            background: #444;
+        }
+        .not-member {
+            text-align: center;
+            color: #b0b8c7;
+            font-size: 14px;
+        }
+        .not-member a {
+            color: #7fd6ea;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .not-member a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Sign in</h2>
+        <h4>Sign in with your username and password</h4>
+        <form action="{{ url_for('login') }}" method="post">
+            <label for="email">Your email</label>
+            <input type="text" id="email" name="email" placeholder="Enter Email" required>
+            
+            <label for="password">Your password</label>
+            <input type="password" id="password" name="password" placeholder="Enter Password" required>
+            
+            <div class="remember-forgot">
+                <span>
+                    <input type="checkbox" id="remember" name="remember" checked>
+                    <label for="remember" style="display:inline;">Remember me</label>
+                </span>
+                <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        <div class="not-member">
+            Not a member? <a href="{{ url_for('signup') }}">Register here!</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - To Do List</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #fbe8c4; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+    .todo-container { background-color: #1e1b1b; color: white; padding: 30px; border-radius: 10px; width: 400px; box-shadow: 0 0 10px rgba(0,0,0,0.3); border: 2px solid #3b5bff; }
+    h1,h2 { text-align: center; margin: 10px 0; }
+    form { display: flex; justify-content: space-between; margin: 20px 0; }
+    input[type="text"] { flex: 1; padding: 10px; border-radius: 5px; border: none; font-size: 16px; }
+    button { background-color: #3b5bff; color: black; border: none; padding: 10px 15px; margin-left: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    ul { list-style: none; padding: 0; }
+    li { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; padding: 10px; border: 1px solid white; border-radius: 5px; }
+    li.done span { text-decoration: line-through; opacity: 0.6; }
+    .task-actions button { margin-left: 5px; cursor: pointer; background:none; border:none; color:#ff4d4d; font-weight:bold; }
+    .counter { margin-top: 20px; border-top: 2px solid #3b5bff; padding-top: 10px; text-align: center; }
+    .flash { text-align: center; margin-bottom: 10px; padding: 5px; border-radius: 5px; }
+    .flash.success { background-color: #4CAF50; color: white; }
+    .flash.warning { background-color: #ff9800; color: white; }
+    .flash.danger { background-color: #f44336; color: white; }
+    .flash.info { background-color: #2196F3; color: white; }
+  </style>
+</head>
+<body>
+  <div class="todo-container">
+    <h1>Welcome, {{ user.name }}</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="flash {{ category }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <!-- Add Task Form -->
+    <form action="{{ url_for('add_task') }}" method="POST">
+      <input type="text" name="task" placeholder="Add a task..." required>
+      <button type="submit">Add</button>
+    </form>
+
+    <h2>Task List</h2>
+    <ul>
+      {% for task in tasks %}
+      <li class="{{ 'done' if task.done else '' }}">
+        <span>{{ task.task }}</span>
+        <div class="task-actions">
+          {% if not task.done %}
+          <form style="display:inline" action="{{ url_for('mark_done', task_id=task._id) }}" method="POST">
+            <button type="submit">Done</button>
+          </form>
+          {% else %}
+          <form style="display:inline" action="{{ url_for('mark_pending', task_id=task._id) }}" method="POST">
+            <button type="submit">Pending</button>
+          </form>
+          {% endif %}
+          <form style="display:inline" action="{{ url_for('delete_task', task_id=task._id) }}" method="POST">
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="counter">
+      Total Tasks: {{ tasks|length }} | Done: {{ tasks|selectattr('done')|list|length }}
+    </div>
+
+    <form action="{{ url_for('logout') }}" method="GET" style="text-align:center; margin-top:15px;">
+      <button type="submit">Logout</button>
+    </form>
+  </div>
+</body>
+</html>
